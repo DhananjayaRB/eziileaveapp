@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: backend
-        image: your-container-registry/nodejs-app:latest
+        image: resolvepay.azurecr.io/dev/backend:{{BUILDTAG}}
         ports:
         - containerPort: 80
 ---
