@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resolvepay-nextjs-app
+  namespace: qa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resolvepay-nextjs-app
+  template:
+    metadata:
+      labels:
+        app: resolvepay-nextjs-app
+    spec:
+      containers:
+      - name: app
+        image: resolvepay.azurecr.io/qa/resolvepay-nextjs-app:{{BUILDTAG}}
+        imagePullPolicy: IfNotPresent
