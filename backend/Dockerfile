@@ -1,17 +1,20 @@
-# Use Node.js 18 Alpine image
+# Use Node.js 18 as the base image
 FROM node:18-alpine
 
-# Set the working directory inside the container
+# Set the working directory
 WORKDIR /app
 
-# Install dependencies
-RUN npm install
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json ./
 
-# Copy the rest of the application files
+# Install dependencies
+RUN npm install --production
+
+# Copy the rest of the application code
 COPY . .
 
-# Expose the application port
+# Expose the application port (e.g., 3000)
 EXPOSE 3000
 
 # Start the application
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
