@@ -15,6 +15,5 @@ spec:
     spec:
       containers:
       - name: app
-        image: resolvepay.azurecr.io/resolvepay-nodejs-app:latest  # Replace with your image URL
-        ports:
-        - containerPort: 3000
+        image: resolvepay.azurecr.io/qa/resolvepay-api-organization-setup:{{BUILDTAG}}
+        imagePullPolicy: IfNotPresent
