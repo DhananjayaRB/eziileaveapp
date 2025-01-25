@@ -1,0 +1,20 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: resolvepay-nodejs-app
+  namespace: qa
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: resolvepay-nodejs-app
+  template:
+    metadata:
+      labels:
+        app: resolvepay-nodejs-app
+    spec:
+      containers:
+      - name: app
+        image: resolvepay.azurecr.io/resolvepay-nodejs-app:latest  # Replace with your image URL
+        ports:
+        - containerPort: 3000
