@@ -1,6 +1,25 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: qa
+  name: resolvepay-nextjs-app
+  labels:
+    app: resolvepay-nextjs-app
+spec:
+  ports:
+    - name: http
+      port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    app: resolvepay-nextjs-app
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
+  labels:
+    app: resolvepay-nextjs-app
   name: resolvepay-nextjs-app
   namespace: qa
 spec:
@@ -8,11 +27,26 @@ spec:
   selector:
     matchLabels:
       app: resolvepay-nextjs-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
   template:
     metadata:
+      annotations:
       labels:
         app: resolvepay-nextjs-app
+      name: resolvepay-nextjs-app
     spec:
+      nodeSelector:
+        env: nonprod
+      dnsConfig:
+        searches:
+          - svc.cluster.local
+        options:
+          - name: ndots
+            value: '2'
       containers:
       - name: app
         image: resolvepay.azurecr.io/qa/resolvepay-nextjs-app:{{BUILDTAG}}
