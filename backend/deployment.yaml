@@ -1,9 +1,29 @@
-# db.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{Environment}}
+  name: db
+  labels:
+    app: db
+spec:
+  ports:
+    - name: postgres
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: db
+  type: ClusterIP # Or LoadBalancer if you need external access to the DB (not recommended for production)
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: qa
+  namespace: {{Environment}}
   name: db
+  labels:
+    app: db
 spec:
   replicas: 1
   selector:
@@ -19,6 +39,7 @@ spec:
         image: postgres:latest
         ports:
         - containerPort: 5432
+          protocol: TCP
         env:
         - name: POSTGRES_USER
           value: user
@@ -32,49 +53,57 @@ spec:
       volumes:
       - name: pgdata
         persistentVolumeClaim:
-          claimName: pgdata-pvc # See below for PVC definition
+          claimName: pgdata-pvc
 
 ---
-# db-service.yaml
-apiVersion: v1
-kind: Service
-metadata:
- namespace: qa
-  name: db
-spec:
-  selector:
-    app: db
-  ports:
-  - protocol: TCP
-    port: 5432 # The port exposed externally
-    targetPort: 5432 # The port the container listens on
-  type: ClusterIP # Exposes the service on an internal IP in the cluster
-
----
-# pgdata-pvc.yaml  (Persistent Volume Claim)
 apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
+  namespace: {{Environment}}
   name: pgdata-pvc
 spec:
   accessModes:
-    - ReadWriteOnce # Or ReadWriteMany if needed, but be careful with Postgres!
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 1Gi # Adjust as needed
+      storage: 1Gi
 
 ---
-# backend.yaml
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{Environment}}
+  name: resolvepay-nodejs-app
+  labels:
+    app: resolvepay-nodejs-app
+spec:
+  ports:
+    - name: http
+      port: 4000
+      targetPort: 4000
+      protocol: TCP
+  selector:
+    app: resolvepay-nodejs-app
+  type: LoadBalancer # Or ClusterIP if internal access only
+
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: qa
+  namespace: {{Environment}}
   name: resolvepay-nodejs-app
+  labels:
+    app: resolvepay-nodejs-app
 spec:
   replicas: 1
   selector:
     matchLabels:
       app: resolvepay-nodejs-app
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
   template:
     metadata:
       labels:
@@ -82,39 +111,20 @@ spec:
     spec:
       containers:
       - name: resolvepay-nodejs-app
-        image: resolvepay.azurecr.io/qa/resolvepay-nodejs-app:{{BUILDTAG}} # Replace with your actual image name!
+        image: resolvepay.azurecr.io/{{Environment}}/resolvepay-nodejs-app:{{BUILDTAG}}
+        imagePullPolicy: IfNotPresent
         ports:
         - containerPort: 4000
+          protocol: TCP
         env:
         - name: DATABASE_URL
-          value: postgresql://user:password@db:5432/resolve-leave # Use the service name 'db'
-        volumeMounts: # If you still need the volume mounts (generally not needed in Kubernetes)
-          - mountPath: /app
-            name: app-volume
-        resources: # Resource limits and requests (important for Kubernetes)
+          value: postgresql://user:password@db:5432/resolve-leave # Use the service name
+        resources: # Add resource requests/limits!
           requests:
             cpu: 100m
             memory: 256Mi
           limits:
             cpu: 500m
             memory: 512Mi
-      volumes: # Define the volumes (if needed)
-        - name: app-volume
-          emptyDir: {} # Or use a persistent volume if you need persistence
-      imagePullSecrets: # If your image is in a private registry
+      imagePullSecrets:
       - name: resolvebizpullsecret
----
-# backend-service.yaml
-apiVersion: v1
-kind: Service
-metadata:
-  namespace: qa
-  name: resolvepay-nodejs-app
-spec:
-  selector:
-    app: resolvepay-nodejs-app
-  ports:
-  - protocol: TCP
-    port: 4000 # The port exposed externally
-    targetPort: 4000 # The port the container listens on
-  type: LoadBalancer # Use LoadBalancer to expose externally (or NodePort if needed)
