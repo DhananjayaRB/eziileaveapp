@@ -69,20 +69,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: qa
-  name: backend
+  name: resolvepay-nextjs-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: backend
+      app: resolvepay-nextjs-app
   template:
     metadata:
       labels:
-        app: backend
+        app: resolvepay-nextjs-app
     spec:
       containers:
-      - name: backend
-        image: <your-backend-image-name> # Replace with your actual image name!
+      - name: resolvepay-nextjs-app
+        image: resolvepay.azurecr.io/qa/resolvepay-nextjs-app:{{BUILDTAG}} # Replace with your actual image name!
         ports:
         - containerPort: 4000
         env:
@@ -102,7 +102,7 @@ spec:
         - name: app-volume
           emptyDir: {} # Or use a persistent volume if you need persistence
       imagePullSecrets: # If your image is in a private registry
-      - name: <your-registry-secret-name>
+      - name: resolvebizpullsecret
 ---
 # backend-service.yaml
 apiVersion: v1
