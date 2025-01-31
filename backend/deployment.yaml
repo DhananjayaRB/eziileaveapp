@@ -69,20 +69,20 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   namespace: qa
-  name: resolvepay-nextjs-app
+  name: resolvepay-nodejs-app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: resolvepay-nextjs-app
+      app: resolvepay-nodejs-app
   template:
     metadata:
       labels:
-        app: resolvepay-nextjs-app
+        app: resolvepay-nodejs-app
     spec:
       containers:
-      - name: resolvepay-nextjs-app
-        image: resolvepay.azurecr.io/qa/resolvepay-nextjs-app:{{BUILDTAG}} # Replace with your actual image name!
+      - name: resolvepay-nodejs-app
+        image: resolvepay.azurecr.io/qa/resolvepay-nodejs-app:{{BUILDTAG}} # Replace with your actual image name!
         ports:
         - containerPort: 4000
         env:
