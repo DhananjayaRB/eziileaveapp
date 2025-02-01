@@ -11,9 +11,9 @@ COPY frontend/package*.json ./
 RUN npm install --omit=dev --legacy-peer-deps  # Or --force
 
 # Copy the rest of the application code
-COPY app ./    # If youre using the app directory
+COPY app ./ 
 # AND
-COPY public ./ # If you have a public directory
+COPY public ./
 
 # Build the Next.js app
 RUN npm run build
