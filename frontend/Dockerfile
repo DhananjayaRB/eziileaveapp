@@ -6,7 +6,9 @@ RUN apk add --no-cache python3 make g++ libc6-compat
 
 COPY package*.json ./
 
-RUN npm install --legacy-peer-deps
+RUN rm -rf build ||true 
+RUN npm install --force
+RUN npm rebuild node-sass
 
 COPY . .
 
