@@ -2,7 +2,7 @@ FROM node:alpine
 
 WORKDIR /app
 COPY package*.json .
-RUN rm -rf build ||true 
+# Install dependencies before copying the full project
 RUN npm install --force
 RUN npm rebuild node-sass
 COPY . .
