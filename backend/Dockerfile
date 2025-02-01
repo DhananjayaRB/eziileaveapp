@@ -1,20 +1,10 @@
-# Use Node.js 18 as the base image
-FROM node:18-alpine
+FROM node:alpine
 
-# Set the working directory
 WORKDIR /app
-
-# Copy package.json and package-lock.json
-COPY package.json and package-lock.json
-
-# Install dependencies
-RUN npm install --production
-
-# Copy the rest of the application code
+COPY ./package.json .
+RUN rm -rf build ||true 
+RUN npm install --force
+RUN npm rebuild node-sass
 COPY . .
-
-# Expose the application port (e.g., 3000)
-EXPOSE 4000
-
-# Start the application
-CMD ["npm", "start"]
+EXPOSE 3000
+CMD ["npm", "run", "dev"]
