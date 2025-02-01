@@ -6,6 +6,7 @@ RUN apk add --no-cache python3 make g++ libc6-compat
 
 COPY package*.json ./
 
+RUN ls -la && cat package.json  # Debug step
 RUN npm install --legacy-peer-deps
 
 COPY . .
