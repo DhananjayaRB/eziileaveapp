@@ -2,7 +2,7 @@
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: {{Environment}} # Replace with your namespace
+  namespace: qa # Replace with your namespace
   name: backend # Use the same name as the deployment
   labels:
     app: backend # Consistent label
@@ -21,7 +21,7 @@ metadata:
   labels:
     app: backend # Consistent label
   name: backend # Use the same name as the service
-  namespace: {{Environment}} # Replace with your namespace
+  namespace: qa # Replace with your namespace
 spec:
   replicas: 1
   selector:
@@ -48,7 +48,7 @@ spec:
             value: '2'
       containers:
       - name: backend # Give a meaningful name to the container
-        image: resolvepay.azurecr.io/{{Environment}}/backend:{{BUILDTAG}} # Replace with your image and tag
+        image: resolvepay.azurecr.io/qa/backend:{{BUILDTAG}} # Replace with your image and tag
         imagePullPolicy: IfNotPresent # Good practice
         ports:
           - containerPort: 4000 # Match your container port
