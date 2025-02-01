@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: frontend # Use a consistent and meaningful name
-        image: myACR.azurecr.io/frontend:latest # Use the ACR image
+        image: resolvepay.azurecr.io/{{Environment}}/frontend:latest # Use the ACR image
         imagePullPolicy: IfNotPresent # Good practice
         ports:
           - containerPort: 3000
