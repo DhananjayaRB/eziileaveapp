@@ -1,20 +1,10 @@
-# Use Node.js 18 as the base image
-FROM node:18-alpine
-
-# Set the working directory
-WORKDIR /app
-
-# Copy package.json and package-lock.json
-COPY package.json package-lock.json ./
-
-# Install dependencies
-RUN npm install --production
-
-# Copy the rest of the application code
+FROM node:lts-alpine
+ENV NODE_ENV=production
+WORKDIR /usr/src/app
+COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+RUN npm install --production --silent && mv node_modules ../
 COPY . .
-
-# Expose the application port (e.g., 3000)
-EXPOSE 3000
-
-# Start the application
+EXPOSE 4000
+RUN chown -R node /usr/src/app
+USER node
 CMD ["npm", "start"]
