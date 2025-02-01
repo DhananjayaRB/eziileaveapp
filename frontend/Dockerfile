@@ -4,7 +4,7 @@ WORKDIR /app
 
 RUN apk add --no-cache python3 make g++ libc6-compat
 
-COPY ./package*.json ./
+COPY frontend/package*.json ./
 
 RUN ls -la && cat package.json  # Debug step
 RUN npm install --legacy-peer-deps
