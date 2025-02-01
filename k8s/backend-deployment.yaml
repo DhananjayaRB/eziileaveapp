@@ -23,7 +23,7 @@ metadata:
   name: resolve-api-leave # Use the same name as the service
   namespace: qa # Replace with your namespace
 spec:
-  replicas: 3
+  replicas: 1
   selector:
     matchLabels:
       app: resolve-api-leave # Consistent label
