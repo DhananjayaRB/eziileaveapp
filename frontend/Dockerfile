@@ -2,11 +2,11 @@ FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-COPY frontend/package*.json ./  # Copy package files first
+COPY frontend/package*.json ./
 RUN npm install --omit=dev
 
-COPY frontend/src/app ./       # Explicitly copy the app directory
-COPY frontend/public ./      # Explicitly copy the public directory
+COPY frontend/src/app ./
+COPY frontend/public ./
 # ... other COPY commands as needed
 
 RUN npm run build
