@@ -11,7 +11,7 @@ COPY frontend/package*.json ./
 RUN npm install --omit=dev --legacy-peer-deps  # Or --force
 
 # Copy the rest of the application code
-COPY app ./    # If you're using the app directory
+COPY app ./    # If youre using the app directory
 # AND
 COPY public ./ # If you have a public directory
 
