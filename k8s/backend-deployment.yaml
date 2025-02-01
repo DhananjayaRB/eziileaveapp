@@ -23,14 +23,14 @@ metadata:
   name: resolve-api-leave # Use the same name as the service
   namespace: qa # Replace with your namespace
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: resolve-api-leave # Consistent label
   strategy:
     rollingUpdate: # Use RollingUpdate for better deployments
       maxSurge: 1
-      maxUnavailable: 0
+      maxUnavailable: 1
     type: RollingUpdate
   template:
     metadata:
