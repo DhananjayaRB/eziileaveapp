@@ -3,9 +3,9 @@ apiVersion: v1
 kind: Service
 metadata:
   namespace: qa # Replace with your namespace
-  name: resolve-leave-ui
+  name: resolve-ui-leave
   labels:
-    app: resolve-leave-ui
+    app: resolve-ui-leave
 spec:
   ports:
     - name: http # Descriptive port name
@@ -13,20 +13,20 @@ spec:
       targetPort: 3000
       protocol: TCP
   selector:
-    app: resolve-leave-ui
+    app: resolve-ui-leave
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: resolve-leave-ui
-  name: resolve-leave-ui
+    app: resolve-ui-leave
+  name: resolve-ui-leave
   namespace: qa # Replace with your namespace
 spec:
   replicas: 2 # Use the replica count from the second definition
   selector:
     matchLabels:
-      app: resolve-leave-ui
+      app: resolve-ui-leave
   strategy:
     rollingUpdate: # Use RollingUpdate for better deployments
       maxSurge: 1
@@ -35,11 +35,11 @@ spec:
   template:
     metadata:
       labels:
-        app: resolve-leave-ui
+        app: resolve-ui-leave
     spec:
       containers:
-      - name: resolve-leave-ui # Give a meaningful name to the container
-        image: resolvepay.azurecr.io/qa/resolve-leave-ui:{{BUILDTAG}} # Replace with your image and tag
+      - name: resolve-ui-leave # Give a meaningful name to the container
+        image: resolvepay.azurecr.io/qa/resolve-ui-leave:{{BUILDTAG}} # Replace with your image and tag
         imagePullPolicy: IfNotPresent # Good practice
         ports:
           - containerPort: 3000
