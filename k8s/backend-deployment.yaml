@@ -1,40 +1,65 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{Environment}} # Replace with your namespace
+  name: backend # Use the same name as the deployment
+  labels:
+    app: backend # Consistent label
+spec:
+  ports:
+    - name: http # Give a meaningful name to the port
+      port: 4000 # Match your container port
+      targetPort: 4000 # Match your container port
+      protocol: TCP
+  selector:
+    app: backend # Consistent label
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: C:\WINDOWS\system32\kompose.exe convert -f D:\Projects\resolve-leave\docker-compose.yaml -o D:\Projects\resolve-leave\k8s\
-    kompose.version: 1.35.0 (9532ceef3)
   labels:
-    io.kompose.service: backend
-  name: backend
+    app: backend # Consistent label
+  name: backend # Use the same name as the service
+  namespace: {{Environment}} # Replace with your namespace
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: backend
+      app: backend # Consistent label
   strategy:
-    type: Recreate
+    rollingUpdate: # Use RollingUpdate for better deployments
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
   template:
     metadata:
-      annotations:
-        kompose.cmd: C:\WINDOWS\system32\kompose.exe convert -f D:\Projects\resolve-leave\docker-compose.yaml -o D:\Projects\resolve-leave\k8s\
-        kompose.version: 1.35.0 (9532ceef3)
       labels:
-        io.kompose.service: backend
+        app: backend # Consistent label
+      name: backend
     spec:
+      nodeSelector: # Add nodeSelector if needed
+        env: nonprod # Example
+      dnsConfig: # Add dnsConfig if needed
+        searches:
+          - svc.cluster.local
+        options:
+          - name: ndots
+            value: '2'
       containers:
-        - env:
-            - name: DATABASE_URL
-              value: postgresql://user:password@db:5432/resolve-leave
-          image: backend
-          name: backend
-          ports:
-            - containerPort: 4000
-              protocol: TCP
-          volumeMounts:
-            - mountPath: /app/node_modules
-              name: backend-claim0
-      restartPolicy: Always
+      - name: backend # Give a meaningful name to the container
+        image: resolvepay.azurecr.io/{{Environment}}/backend:{{BUILDTAG}} # Replace with your image and tag
+        imagePullPolicy: IfNotPresent # Good practice
+        ports:
+          - containerPort: 4000 # Match your container port
+            protocol: TCP
+        env:
+          - name: DATABASE_URL
+            value: postgresql://user:password@db:5432/resolve-leave # Keep your environment variables
+        volumeMounts: # Handle your volumes
+          - mountPath: /app/node_modules
+            name: backend-claim0
+      restartPolicy: Always # Keep your restart policy
       volumes:
         - name: backend-claim0
           persistentVolumeClaim:
