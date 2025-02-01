@@ -8,7 +8,7 @@ WORKDIR /app
 COPY frontend/package*.json ./
 
 # Install dependencies (using --omit=dev for production)
-RUN npm install --omit=dev
+RUN npm install --omit=dev --legacy-peer-deps  # Or --force
 
 # Copy the rest of the application code
 COPY . .
