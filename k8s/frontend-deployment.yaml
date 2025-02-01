@@ -39,7 +39,7 @@ spec:
     spec:
       containers:
       - name: resolve-ui-leave # Give a meaningful name to the container
-        image: resolvepay.azurecr.io/qa/resolve-ui-leave:{{BUILDTAG}} # Replace with your image and tag
+        image: resolvepay.azurecr.io/resolve-ui-leave:{{BUILDTAG}} # Replace with your image and tag
         imagePullPolicy: IfNotPresent # Good practice
         ports:
           - containerPort: 3000
