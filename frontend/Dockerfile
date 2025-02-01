@@ -1,10 +1,17 @@
-FROM node:alpine
+FROM node:18-alpine
 
 WORKDIR /app
-COPY package*.json .
-# Install dependencies before copying the full project
-RUN npm install --force
-RUN npm rebuild node-sass
+
+RUN apk add --no-cache python3 make g++ libc6-compat
+
+COPY package*.json ./
+
+RUN npm install --legacy-peer-deps
+
 COPY . .
+
+ENV NODE_ENV=qa
+
+EXPOSE 3000
 
 CMD ["npm", "run", "dev"]
