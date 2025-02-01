@@ -22,10 +22,10 @@ FROM node:18-alpine AS runner
 WORKDIR /app
 
 # Copy only the necessary files from the builder stage
-COPY --from=builder /frontend/package*.json ./
-COPY --from=builder /frontend/.next .next
-COPY --from=builder /frontend/node_modules node_modules
-COPY --from=builder /frontend/public public
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/.next .next
+COPY --from=builder /app/node_modules node_modules
+COPY --from=builder /app/public public
 
 # Expose the port Next.js runs on
 EXPOSE 3000
