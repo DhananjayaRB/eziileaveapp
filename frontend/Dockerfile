@@ -7,7 +7,7 @@ RUN apk add --no-cache python3 make g++ libc6-compat
 COPY package*.json ./
 
 RUN rm -rf build ||true 
-RUN npm install --force
+RUN npm install
 RUN npm rebuild node-sass
 
 COPY . .
