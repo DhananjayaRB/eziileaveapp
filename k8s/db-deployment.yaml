@@ -1,43 +1,59 @@
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: {{Environment}} # Replace with your namespace
+  name: db
+  labels:
+    app: db
+spec:
+  ports:
+    - name: postgres # More descriptive port name
+      port: 5432
+      targetPort: 5432
+      protocol: TCP
+  selector:
+    app: db
+---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  annotations:
-    kompose.cmd: C:\WINDOWS\system32\kompose.exe convert -f D:\Projects\resolve-leave\docker-compose.yaml -o D:\Projects\resolve-leave\k8s\
-    kompose.version: 1.35.0 (9532ceef3)
   labels:
-    io.kompose.service: db
+    app: db
   name: db
+  namespace: {{Environment}} # Replace with your namespace
 spec:
   replicas: 1
   selector:
     matchLabels:
-      io.kompose.service: db
+      app: db
   strategy:
-    type: Recreate
+    rollingUpdate: # Use RollingUpdate
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
   template:
     metadata:
-      annotations:
-        kompose.cmd: C:\WINDOWS\system32\kompose.exe convert -f D:\Projects\resolve-leave\docker-compose.yaml -o D:\Projects\resolve-leave\k8s\
-        kompose.version: 1.35.0 (9532ceef3)
       labels:
-        io.kompose.service: db
+        app: db
     spec:
       containers:
-        - env:
-            - name: POSTGRES_DB
-              value: resolve-leave
-            - name: POSTGRES_PASSWORD
-              value: resolve@2022
-            - name: POSTGRES_USER
-              value: postgres
-          image: postgres:latest
-          name: db
-          ports:
-            - containerPort: 5432
-              protocol: TCP
-          volumeMounts:
-            - mountPath: /var/lib/postgresql/data
-              name: pgdata
+      - name: db
+        image: postgres:latest # Consider using a specific version for production
+        imagePullPolicy: IfNotPresent # Good practice
+        ports:
+          - containerPort: 5432
+            protocol: TCP
+        env:
+          - name: POSTGRES_DB
+            value: resolve-leave
+          - name: POSTGRES_PASSWORD
+            value: resolve@2022 # Consider using a Kubernetes Secret for passwords
+          - name: POSTGRES_USER
+            value: postgres
+        volumeMounts:
+          - mountPath: /var/lib/postgresql/data
+            name: pgdata
       restartPolicy: Always
       volumes:
         - name: pgdata
