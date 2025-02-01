@@ -23,14 +23,14 @@ metadata:
   name: resolve-ui-leave
   namespace: qa # Replace with your namespace
 spec:
-  replicas: 2 # Use the replica count from the second definition
+  replicas: 1 # Use the replica count from the second definition
   selector:
     matchLabels:
       app: resolve-ui-leave
   strategy:
     rollingUpdate: # Use RollingUpdate for better deployments
       maxSurge: 1
-      maxUnavailable: 0
+      maxUnavailable: 1
     type: RollingUpdate
   template:
     metadata:
