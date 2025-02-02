@@ -1,47 +1,69 @@
----
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: qa # Replace with your namespace
-  name: resolve-ui-leave
+  namespace: qa  # Replace {{Environment}} with actual value
+  name: eziileave-ui
   labels:
-    app: resolve-ui-leave
+    app: eziileave-ui
 spec:
   ports:
-    - name: http # Descriptive port name
-      port: 3000
+    - name: http
+      port: 80
       targetPort: 3000
       protocol: TCP
   selector:
-    app: resolve-ui-leave
+    app: eziileave-ui
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: resolve-ui-leave
-  name: resolve-ui-leave
-  namespace: qa # Replace with your namespace
+    app: eziileave-ui
+  name: eziileave-ui
+  namespace: qa  # Replace {{Environment}} with actual value
 spec:
-  replicas: 1 # Use the replica count from the second definition
+  replicas: 1
   selector:
     matchLabels:
-      app: resolve-ui-leave
+      app: eziileave-ui
   strategy:
-    rollingUpdate: # Use RollingUpdate for better deployments
+    rollingUpdate:
       maxSurge: 1
-      maxUnavailable: 1
+      maxUnavailable: 0
     type: RollingUpdate
   template:
     metadata:
+      annotations:
       labels:
-        app: resolve-ui-leave
+        app: eziileave-ui
+      name: eziileave-ui
     spec:
+      nodeSelector:
+        env: nonprod
+      dnsConfig:
+        searches:
+          - svc.cluster.local
+        options:
+          - name: ndots
+            value: '2'
       containers:
-      - name: resolve-ui-leave # Give a meaningful name to the container
-        image: resolvepay.azurecr.io/resolve-ui-leave:{{BUILDTAG}} # Replace with your image and tag
-        imagePullPolicy: IfNotPresent # Good practice
+      - name: eziileave-ui
+        image: resolvepay.azurecr.io/eziileave-ui:{{BUILDTAG}}
+        imagePullPolicy: IfNotPresent
         ports:
-          - containerPort: 3000
-            protocol: TCP
-      restartPolicy: Always
+        - containerPort: 3000
+          protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: 3000
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 5
+        readinessProbe:
+          tcpSocket:
+            port: 3000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 5
