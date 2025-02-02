@@ -9,7 +9,10 @@ COPY frontend/package*.json ./
 RUN npm install --omit=dev
 
 # Copy the entire frontend source code
-COPY frontend ./
+COPY src ./src
+COPY public ./public
+COPY next.config.js .
+COPY tsconfig.json .
 
 # Build the Next.js application
 RUN npm run build
