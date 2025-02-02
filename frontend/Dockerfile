@@ -1,14 +1,23 @@
-FROM node:18-alpine AS builder
+# Use the official Node.js image as the base image
+FROM node:18-alpine
 
+# Set the working directory
 WORKDIR /app
 
-COPY frontend/package*.json ./
-RUN npm install --omit=dev
+# Copy package.json and package-lock.json to the container
+COPY package*.json ./
 
-COPY frontend/src/app ./
-COPY frontend/public ./
-# ... other COPY commands as needed
+# Install dependencies
+RUN npm install
 
+# Copy the rest of the application files
+COPY . .
+
+# Build the Next.js application
 RUN npm run build
 
-# ... rest of your multi-stage Dockerfile
+# Expose the application on port 4000
+EXPOSE 3000
+
+# Start the application
+CMD ["npm", "start"]
