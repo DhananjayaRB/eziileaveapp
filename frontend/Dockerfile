@@ -1,23 +1,28 @@
-# Use the official Node.js image as the base image
-FROM node:18-alpine
+# Use the official Node.js image as the base
+FROM node:18-alpine AS builder
 
 # Set the working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json to the container
+# Copy package.json and install dependencies
 COPY frontend/package*.json ./
+RUN npm install --omit=dev
 
-# Install dependencies
-RUN npm install
-
-# Copy the rest of the application files
-COPY . .
+# Copy the entire frontend source code
+COPY frontend ./
 
 # Build the Next.js application
 RUN npm run build
 
-# Expose the application on port 4000
+# Serve the app using a smaller production image
+FROM node:18-alpine
+WORKDIR /app
+
+# Copy only necessary files from the builder stage
+COPY --from=builder /app ./
+
+# Expose the Next.js default port
 EXPOSE 3000
 
-# Start the application
+# Start the Next.js app
 CMD ["npm", "start"]
