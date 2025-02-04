@@ -8,8 +8,6 @@ RUN npm install --force
 RUN npm rebuild node-sass
 COPY . .
 
-RUN npm run build
-
 EXPOSE 3000
 
 CMD ["npm", "start"]
