@@ -1,13 +1,16 @@
 {
   "compilerOptions": {
     "lib": ["es5", "es6"],
-    "target": "es5",
+    "target": "es6",  // Change to es6 or esnext for better modern JS support
     "module": "commonjs",
     "moduleResolution": "node",
-    "outDir": "./build",
+    "outDir": "./build",  // Output compiled JS files here
+    "rootDir": "./src",   // Ensure TypeScript knows where your source files are
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "sourceMap": true,
     "esModuleInterop": true
-  }
+  },
+  "include": ["src/**/*"],  // Make sure all TypeScript files in src are included
+  "exclude": ["node_modules"]  // Exclude node_modules
 }

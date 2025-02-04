@@ -7,9 +7,9 @@ AppDataSource.initialize()
   .then(() => {
     console.log("Data Source has been initialized!");
 
-    if (!process.env.DATABASE_URL) {
+    /*if (!process.env.DATABASE_URL) {
       throw new Error("DATABASE_URL must be defined");
-    }
+    }*/
 
     app.listen(PORT, () => {
       console.log(`Server is running on port ${PORT}`);
