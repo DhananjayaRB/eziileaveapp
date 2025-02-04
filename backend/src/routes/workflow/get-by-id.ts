@@ -43,7 +43,7 @@ router.get(
       }
 
       res.status(200).json(workflow);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error fetching workflow by ID:", err);
       res
         .status(500)

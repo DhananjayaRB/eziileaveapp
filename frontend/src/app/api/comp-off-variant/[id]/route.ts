@@ -23,7 +23,7 @@ export async function GET(
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching comp-off variant:", error);
     return NextResponse.json(
       { error: error.message || "Failed to fetch comp-off variant" },
@@ -55,7 +55,7 @@ export async function DELETE(
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error deleting comp-off variant:", error);
     return NextResponse.json(
       { error: error.message || "Failed to delete comp-off variant" },
@@ -90,7 +90,7 @@ export async function PATCH(
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error updating comp-off variant:", error);
     return NextResponse.json(
       { error: error.message || "Failed to update comp-off variant" },

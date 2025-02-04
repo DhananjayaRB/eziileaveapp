@@ -51,7 +51,7 @@ export default function Page() {
     isLoading,
   } = useSWR("/api/roles", fetcher) as {
     data: Role[];
-    error: any;
+    error: unknown;
     isLoading: boolean;
   };
 

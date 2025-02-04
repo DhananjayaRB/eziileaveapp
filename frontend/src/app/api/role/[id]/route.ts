@@ -28,7 +28,7 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
     }
 
     return NextResponse.json(updatedData);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error updating roe:", error);
     return NextResponse.json(
       { error: error.message || "Failed to update role" },
@@ -60,7 +60,7 @@ export async function GET(
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching role:", error);
     return NextResponse.json(
       { error: error.message || "Failed to fetch role" },
@@ -92,7 +92,7 @@ export async function DELETE(
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error deleting role:", error);
     return NextResponse.json(
       { error: error.message || "Failed to delete role" },

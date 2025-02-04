@@ -41,7 +41,7 @@ router.post(
       });
 
       res.status(201).json(compOff);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error creating comp off:", error);
       res
         .status(500)

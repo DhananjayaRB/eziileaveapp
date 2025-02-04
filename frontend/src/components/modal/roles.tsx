@@ -71,7 +71,7 @@ export default function RolesModal({
     isLoading,
   } = useSWR("/api/roles", fetcher) as {
     data: Role[];
-    error: any;
+    error: unknown;
     isLoading: boolean;
   };
 

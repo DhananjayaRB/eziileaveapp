@@ -65,7 +65,7 @@ export const requireAuth: RequestHandler = (
     };
 
     next();
-  } catch (error: any) {
+  } catch (error: unknown) {
     if (error instanceof jwt.JsonWebTokenError) {
       res.status(401).json({
         message: error.message || "Invalid token",

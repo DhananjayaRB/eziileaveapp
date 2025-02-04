@@ -29,7 +29,7 @@ router.get(
       }
 
       res.status(200).json(organisation.pto);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error updating PTO:", error);
       res.status(500).json({ message: "Update failed", error: error.message });
     }

@@ -115,7 +115,7 @@ export function EditCompOff({ id }: Props) {
       });
       toast.success("Variant updated successfully");
       router.back();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       toast.error(error.response.data.error || "Failed to update variant");
     } finally {

@@ -80,7 +80,7 @@ export function EditLeave({ id, variantId }: Props) {
     isLoading,
   } = useSWR(`/api/leave-variants/${variantId}`, fetcher) as {
     data: LeaveVariant;
-    error: any;
+    error: unknown;
     isLoading: boolean;
   };
 
@@ -135,7 +135,7 @@ export function EditLeave({ id, variantId }: Props) {
         description: `Leave variant ${data.variantName} updated successfully`,
       });
       router.back();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error("Failed to update leave variant", {
         description: error.message || "Failed to update leave variant",
       });

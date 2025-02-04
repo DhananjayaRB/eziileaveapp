@@ -18,7 +18,7 @@ router.post("/api/pto", async (req: Request, res: Response) => {
     await ptoRepository.save(pto);
 
     res.status(201).json(pto);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error creating pto:", error);
     res.status(500).json({ message: "Creation failed", error: error.message });
   }

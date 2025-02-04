@@ -27,7 +27,7 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
     }
 
     return NextResponse.json(updatedData);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error updating workflow:", error);
     return NextResponse.json(
       { error: error.message || "Failed to update workflow" },
@@ -59,7 +59,7 @@ export async function GET(
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching workflow:", error);
     return NextResponse.json(
       { error: error.message || "Failed to fetch workflow" },
@@ -91,7 +91,7 @@ export async function DELETE(
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error deleting workflow:", error);
     return NextResponse.json(
       { error: error.message || "Failed to delete workflow" },

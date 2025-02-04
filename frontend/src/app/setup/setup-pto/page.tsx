@@ -213,7 +213,7 @@ export default function Page() {
         description: `PTO Variant ${obj.variantName} created successfully`,
       });
       await mutate("/api/pto-variant");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       toast.error("Failed to create variant", {
         description: error.message || "Failed to create variant",

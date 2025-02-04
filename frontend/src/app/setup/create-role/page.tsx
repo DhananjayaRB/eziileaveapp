@@ -130,7 +130,7 @@ export default function Page() {
 
       toast.success("Role created successfully");
       router.push("/setup/roles");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error creating role:", error);
       toast.error("There was an error creating the role", {
         description: error.message,

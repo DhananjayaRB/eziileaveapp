@@ -16,7 +16,7 @@ export async function GET(request: Request) {
     const data = await response.json();
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching comp off:", error);
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },
@@ -46,7 +46,7 @@ export async function PATCH(request: Request) {
     }
 
     return NextResponse.json(updatedData);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error updating comp off:", error);
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },

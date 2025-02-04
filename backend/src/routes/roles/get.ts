@@ -29,7 +29,7 @@ router.get(
       }
 
       res.status(200).json(organisation.roles);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error fetching roles:", err);
       res
         .status(500)

@@ -88,7 +88,7 @@ export default function Page() {
         description: `PTO Variant ${obj.variantName} created successfully`,
       });
       router.back();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       toast.error(error.message || "Failed to create variant");
     } finally {

@@ -107,7 +107,7 @@ export function NewLeave({ id }: Props) {
     isLoading,
   } = useSWR(`/api/leave-variants?leaveTypeId=${id}`, fetcher) as {
     data: LeaveVariantResponse;
-    error: any;
+    error: unknown;
     isLoading: boolean;
   };
 
@@ -153,7 +153,7 @@ export function NewLeave({ id }: Props) {
         description: `Leave variant ${data.variantName} created successfully`,
       });
       router.back();
-    } catch (error: any) {
+    } catch (error: unknown) {
       toast.error("Failed to create leave variant", {
         description: error.message || "Failed to create leave variant",
       });

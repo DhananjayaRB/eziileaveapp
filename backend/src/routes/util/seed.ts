@@ -71,7 +71,7 @@ router.post("/api/seed", async (req: Request, res: Response) => {
       compOff,
       pto,
     });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error seeding data:", error);
     res.status(500).json({ message: "Seeding failed", error: error.message });
   }

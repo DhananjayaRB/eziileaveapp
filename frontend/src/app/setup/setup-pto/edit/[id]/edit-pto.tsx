@@ -116,7 +116,7 @@ export function EditPTO({ id }: Props) {
         description: `PTO Variant ${obj.variantName} updated successfully`,
       });
       router.back();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       toast.error(error.message || "Failed to update variant");
     } finally {

@@ -58,7 +58,7 @@ router.patch(
         return res.status(404).json({ message: "Organisation not found" });
       }
 
-      const variants: any[] = Array.isArray(organisation.leaveVariants)
+      const variants: unknown[] = Array.isArray(organisation.leaveVariants)
         ? organisation.leaveVariants
         : Object.values(organisation.leaveVariants);
 

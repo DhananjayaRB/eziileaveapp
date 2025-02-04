@@ -126,7 +126,7 @@ export function useResolveAPI() {
       );
 
       setEmployees(response.data.data.data);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log("Error fetching employees", error);
     } finally {
       setIsLoading(false);
@@ -155,7 +155,7 @@ export function useResolveAPI() {
         optionsMap[subType.sub_type] = options;
       }
       setOptions(optionsMap);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log("Error fetching organisation structure", error);
     } finally {
       setIsLoading(false);
@@ -176,7 +176,7 @@ export function useResolveAPI() {
       );
 
       return response.data.orgAttributes;
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log("Error fetching organisation structure", error);
     } finally {
       setIsLoading(false);
@@ -197,7 +197,7 @@ export function useResolveAPI() {
       );
 
       setContractMaster(response.data);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.log("Error fetching contract master", error);
     } finally {
       setIsLoading(false);

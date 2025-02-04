@@ -62,8 +62,8 @@ export function UpdateRole({ id }: Props) {
     error,
     isLoading,
   } = useSWR(`/api/role/${id}`, fetcher) as {
-    data: any;
-    error: any;
+    data: unknown;
+    error: unknown;
     isLoading: boolean;
   };
 
@@ -184,7 +184,7 @@ export function UpdateRole({ id }: Props) {
       toast.success("Role updated successfully");
 
       router.push("/setup/roles");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error updating role:", error);
       toast.error("There was an error updating the role", {
         description: error.message,

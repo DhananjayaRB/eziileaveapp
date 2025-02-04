@@ -89,7 +89,7 @@ export default function Page() {
       toast.success("Variant created successfully");
       router.back();
       await mutate("/api/comp-off-variant");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error(error);
       toast.error(error.response.data.error || "Failed to create variant");
     } finally {

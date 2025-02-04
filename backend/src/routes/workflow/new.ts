@@ -71,7 +71,7 @@ router.post(
       });
 
       res.status(201).json(savedWorkflow);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error creating workflow:", err);
       res
         .status(500)

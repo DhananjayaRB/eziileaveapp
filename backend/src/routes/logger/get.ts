@@ -32,7 +32,7 @@ router.get(
       }
 
       res.json(logs);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error fetching logs:", err);
       res
         .status(500)

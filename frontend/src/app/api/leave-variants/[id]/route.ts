@@ -23,7 +23,7 @@ export async function GET(
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching leave variant:", error);
     return NextResponse.json(
       { error: error.message || "Failed to fetch leave variant" },
@@ -61,7 +61,7 @@ export async function PATCH(
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error updating leave variant:", error);
     return NextResponse.json(
       { error: error.message || "Failed to update leave variant" },

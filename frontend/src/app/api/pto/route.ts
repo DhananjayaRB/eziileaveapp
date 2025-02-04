@@ -15,7 +15,7 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching pto:", error);
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },
@@ -45,7 +45,7 @@ export async function PATCH(request: Request) {
     }
 
     return NextResponse.json(updatedData);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error updating pto:", error);
     return NextResponse.json(
       { error: error.message || "Internal Server Error" },

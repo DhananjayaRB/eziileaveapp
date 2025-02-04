@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
     }
 
     return NextResponse.json(result);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error creating role:", error);
     return NextResponse.json(
       { error: error.message || "Failed to create role" },

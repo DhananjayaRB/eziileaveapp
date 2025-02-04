@@ -41,7 +41,7 @@ export function HomePage() {
 
       if (!response.ok) throw new Error("Failed to create organisation");
       window.location.reload();
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error setting up organisation:", error);
     } finally {
       setLoading(false);

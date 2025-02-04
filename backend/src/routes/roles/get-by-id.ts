@@ -40,7 +40,7 @@ router.get(
       }
 
       res.status(200).json(role);
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error fetching role by ID:", err);
       res
         .status(500)

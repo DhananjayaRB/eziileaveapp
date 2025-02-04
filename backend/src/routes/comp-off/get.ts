@@ -29,7 +29,7 @@ router.get(
       }
 
       res.status(200).json(organisation.compOff);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error fetching CompOff:", error);
       res.status(500).json({ error: "Internal server error" });
     }

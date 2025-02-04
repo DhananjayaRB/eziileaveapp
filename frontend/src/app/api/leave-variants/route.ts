@@ -24,7 +24,7 @@ export async function GET(request: Request) {
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error fetching leave variants:", error);
     return NextResponse.json(
       { error: error.message || "Failed to fetch leave variants" },
@@ -59,7 +59,7 @@ export async function POST(request: Request) {
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error creating leave variant:", error);
     return NextResponse.json(
       { error: error.message || "Failed to create leave variant" },
@@ -92,7 +92,7 @@ export async function DELETE(request: Request) {
     }
 
     return NextResponse.json(data);
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Error deleting leave variant:", error);
     return NextResponse.json(
       { error: error.message || "Failed to delete leave variant" },

@@ -62,7 +62,7 @@ router.delete(
       });
 
       res.status(200).json({ message: "Role deleted successfully" });
-    } catch (err: any) {
+    } catch (err: unknown) {
       console.error("Error deleting role:", err);
       res
         .status(500)

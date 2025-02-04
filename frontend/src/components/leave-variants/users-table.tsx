@@ -49,7 +49,7 @@ export function UsersTable<TData, TValue>({
   useEffect(() => {
     if (selectedUsers && selectedUsers.length > 0 && data.length > 0) {
       const initialSelection: Record<string, boolean> = {};
-      data.forEach((row: any, index) => {
+      data.forEach((row: unknown, index) => {
         if (
           selectedUsers.some(
             (selected) => selected.employee_number === row.employee_number

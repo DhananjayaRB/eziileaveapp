@@ -129,7 +129,7 @@ export function UpdateWorkflow({ id }: Props) {
 
       toast.success("Workflow updated successfully");
       router.push("/setup/workflows");
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error updating workflow:", error);
       toast.error("Failed to update workflow", {
         description: error.message,

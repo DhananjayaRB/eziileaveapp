@@ -92,7 +92,7 @@ export default function Page() {
       setTimeout(() => {
         router.push("/setup/workflows");
       }, 5000);
-    } catch (error: any) {
+    } catch (error: unknown) {
       console.error("Error creating workflow:", error);
       toast.error("Failed to create workflow", {
         description: error.message,
