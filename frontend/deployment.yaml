@@ -49,5 +49,5 @@ spec:
             value: '2'
       containers:
       - name: app
-        image: resolvepay.azurecr.io/qa/ezziileave-ui:{{BUILDTAG}}
+        image: resolvepay.azurecr.io/ezziileave-ui:{{BUILDTAG}}
         imagePullPolicy: IfNotPresent
