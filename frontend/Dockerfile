@@ -1,10 +1,10 @@
-FROM node:alpine
+FROM node:14-alpine
 
 WORKDIR /app
-COPY ./package.json .
-RUN rm -rf build ||true 
-RUN npm install --force
-RUN npm rebuild node-sass
+
+COPY package.json package-lock.json ./
+RUN npm install
+
 COPY . .
 
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
