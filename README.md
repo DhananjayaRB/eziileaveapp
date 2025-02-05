@@ -4,6 +4,7 @@ This project consists of a frontend built with Next.js, TypeScript, and Tailwind
 
 ## Requirements
 
+
 Make sure the following are installed on your system:
 
 - **Docker**: [Install Docker](https://docs.docker.com/get-docker/)
