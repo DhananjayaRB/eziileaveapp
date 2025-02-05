@@ -7,7 +7,7 @@ export async function GET(
   try {
     const authHeader = req.headers.get("Authorization");
     const response = await fetch(
-      `http://localhost:4000/api/comp-off-variant-details/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/comp-off-variant-details/${params.id}`,
       {
         headers: {
           Authorization: authHeader || "",
@@ -39,7 +39,7 @@ export async function DELETE(
   try {
     const authHeader = req.headers.get("Authorization");
     const response = await fetch(
-      `http://localhost:4000/api/comp-off-variant/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/comp-off-variant/${params.id}`,
       {
         method: "DELETE",
         headers: {
@@ -73,7 +73,7 @@ export async function PATCH(
     const body = await req.json();
 
     const response = await fetch(
-      `http://localhost:4000/api/comp-off-variant/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/comp-off-variant/${params.id}`,
       {
         method: "PATCH",
         headers: {

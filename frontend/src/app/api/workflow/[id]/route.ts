@@ -11,7 +11,7 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
     const { ...workflowData } = await request.json();
     const authHeader = request.headers.get("Authorization");
 
-    const response = await fetch(`http://localhost:4000/api/workflow/${id}`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/workflow/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -43,7 +43,7 @@ export async function GET(
   try {
     const authHeader = req.headers.get("Authorization");
     const response = await fetch(
-      `http://localhost:4000/api/workflow/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/workflow/${params.id}`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -75,7 +75,7 @@ export async function DELETE(
   try {
     const authHeader = req.headers.get("Authorization");
     const response = await fetch(
-      `http://localhost:4000/api/workflow/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/workflow/${params.id}`,
       {
         method: "DELETE",
         headers: {

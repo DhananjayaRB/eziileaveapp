@@ -4,7 +4,7 @@ export async function POST(request: NextRequest) {
   try {
     const workflowData = await request.json();
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch(`http://localhost:4000/api/workflow`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/workflow`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -32,7 +32,7 @@ export async function POST(request: NextRequest) {
 export async function GET(request: NextRequest) {
   try {
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch(`http://localhost:4000/api/workflow`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/workflow`, {
       headers: {
         Authorization: authHeader || "",
         "Content-Type": "application/json",

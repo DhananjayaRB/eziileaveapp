@@ -10,7 +10,7 @@ export async function PUT(request: NextRequest, { params: { id } }: Props) {
   try {
     const { ...roleData } = await request.json();
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch(`http://localhost:4000/api/roles/${id}`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/roles/${id}`, {
       method: "PUT",
       headers: {
         Authorization: authHeader || "",
@@ -44,7 +44,7 @@ export async function GET(
   try {
     const authHeader = req.headers.get("Authorization");
     const response = await fetch(
-      `http://localhost:4000/api/roles/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/roles/${params.id}`,
       {
         headers: {
           Authorization: authHeader || "",
@@ -76,7 +76,7 @@ export async function DELETE(
   try {
     const authHeader = req.headers.get("Authorization");
     const response = await fetch(
-      `http://localhost:4000/api/roles/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/roles/${params.id}`,
       {
         method: "DELETE",
         headers: {

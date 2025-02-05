@@ -4,7 +4,7 @@ export async function GET(req: NextRequest) {
   try {
     const authHeader = req.headers.get("Authorization");
 
-    const response = await fetch(`http://localhost:4000/api/pto-variant`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/pto-variant`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -33,7 +33,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const authHeader = req.headers.get("Authorization");
 
-    const response = await fetch(`http://localhost:4000/api/pto-variant`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/pto-variant`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
