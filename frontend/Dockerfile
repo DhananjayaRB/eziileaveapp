@@ -1,21 +1,26 @@
-FROM node:18-alpine
+# Use Node.js LTS version (Debian-based for better compatibility)
+FROM node:18-bullseye
 
+# Set working directory
 WORKDIR /app
 
-COPY package.json ./
+# Copy package.json and package-lock.json first for better caching
+COPY package.json package-lock.json ./
+
+# Install dependencies
 RUN npm install --omit=dev
+
+# Copy the rest of the app files
 COPY . .
-# Ensure Next.js binary has execution permission
-RUN chmod +x node_modules/.bin/next
 
-# Set correct file permissions for non-root execution
-RUN chmod -R 755 /app
+# 🔥 Fix: Ensure correct file permissions for the entire app directory
+RUN chown -R node:node /app && chmod -R 755 /app
 
-# Set a non-root user for better security
+# Switch to a non-root user for security
 USER node
 
-# Expose the port Next.js runs on
+# Expose the Next.js port
 EXPOSE 3000
 
-# Use npx to run Next.js to avoid permission issues
+# Run Next.js in development mode
 CMD ["npx", "next", "dev"]
