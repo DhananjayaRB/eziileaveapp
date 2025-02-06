@@ -8,7 +8,7 @@ export async function DELETE(
     const authHeader = req.headers.get("Authorization");
 
     const response = await fetch(
-      `http://localhost:4000/api/pto-variant/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/pto-variant/${params.id}`,
       {
         method: "DELETE",
         headers: {
@@ -42,7 +42,7 @@ export async function PATCH(
     const body = await req.json();
 
     const response = await fetch(
-      `http://localhost:4000/api/pto-variant/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/pto-variant/${params.id}`,
       {
         method: "PATCH",
         headers: {
@@ -75,7 +75,7 @@ export async function GET(
   try {
     const authHeader = req.headers.get("Authorization");
     const response = await fetch(
-      `http://localhost:4000/api/pto-variant-details/${params.id}`,
+      `https://eziileave-api.azurewebsites.net/api/pto-variant-details/${params.id}`,
       {
         headers: {
           Authorization: authHeader || "",

@@ -4,7 +4,7 @@ export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization");
 
-    const response = await fetch("http://localhost:4000/api/leave-type", {
+    const response = await fetch("https://eziileave-api.azurewebsites.net/api/leave-type", {
       headers: {
         Authorization: authHeader || "",
       },
@@ -30,7 +30,7 @@ export async function PATCH(request: Request) {
     const authHeader = request.headers.get("Authorization");
     const { id, isActive } = await request.json();
 
-    const response = await fetch(`http://localhost:4000/api/leave-type/${id}`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/leave-type/${id}`, {
       method: "PATCH",
       headers: {
         Authorization: authHeader || "",

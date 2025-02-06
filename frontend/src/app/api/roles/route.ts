@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch("http://localhost:4000/api/roles", {
+    const response = await fetch("https://eziileave-api.azurewebsites.net/api/roles", {
       cache: "no-store",
       headers: {
         Authorization: authHeader || "",

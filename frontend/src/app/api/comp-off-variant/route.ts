@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(req: NextRequest) {
   try {
     const authHeader = req.headers.get("Authorization");
-    const response = await fetch(`http://localhost:4000/api/comp-off-variant`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/comp-off-variant`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     const authHeader = req.headers.get("Authorization");
     const body = await req.json();
 
-    const response = await fetch(`http://localhost:4000/api/comp-off-variant`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/comp-off-variant`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

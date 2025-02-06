@@ -7,7 +7,7 @@ export async function GET(request: Request) {
 
   try {
     const response = await fetch(
-      `http://localhost:4000/api/leave-variant/${leaveTypeId}`,
+      `https://eziileave-api.azurewebsites.net/api/leave-variant/${leaveTypeId}`,
       {
         headers: {
           Authorization: authHeader || "",
@@ -41,7 +41,7 @@ export async function POST(request: Request) {
     const leaveTypeId = searchParams.get("leaveTypeId");
 
     const response = await fetch(
-      `http://localhost:4000/api/leave-variant/${leaveTypeId}`,
+      `https://eziileave-api.azurewebsites.net/api/leave-variant/${leaveTypeId}`,
       {
         method: "POST",
         headers: {
@@ -75,7 +75,7 @@ export async function DELETE(request: Request) {
 
   try {
     const response = await fetch(
-      `http://localhost:4000/api/leave-variant/${leaveTypeId}`,
+      `https://eziileave-api.azurewebsites.net/api/leave-variant/${leaveTypeId}`,
       {
         method: "DELETE",
         headers: {

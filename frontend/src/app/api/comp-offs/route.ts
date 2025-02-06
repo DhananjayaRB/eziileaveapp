@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch("http://localhost:4000/api/comp-off", {
+    const response = await fetch("https://eziileave-api.azurewebsites.net/api/comp-off", {
       headers: {
         Authorization: authHeader || "",
       },
@@ -30,7 +30,7 @@ export async function PATCH(request: Request) {
 
   try {
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch(`http://localhost:4000/api/comp-off`, {
+    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/comp-off`, {
       method: "PATCH",
       headers: {
         Authorization: authHeader || "",
