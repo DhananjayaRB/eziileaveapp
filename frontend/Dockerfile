@@ -11,17 +11,12 @@ RUN npm install --omit=dev
 # Copy the rest of the app
 COPY . .
 
-# 🔥 Build the Next.js app
-RUN npm run build
-
 # 🔥 Fix permissions
 RUN chown -R node:node /app && chmod -R 755 /app
 
-# Switch to a non-root user
-USER node
 
 # Expose the Next.js port
 EXPOSE 3000
 
 # Start Next.js in production mode
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
