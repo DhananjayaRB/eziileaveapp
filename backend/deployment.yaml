@@ -1,32 +1,31 @@
----
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: qa
-  name: resolvepay-nodejs-app
+  namespace: qa  # Replace {{Environment}} with actual value
+  name: eziileave-api
   labels:
-    app: resolvepay-nodejs-app
+    app: eziileave-api
 spec:
   ports:
     - name: http
       port: 80
-      targetPort: 80
+      targetPort: 4000
       protocol: TCP
   selector:
-    app: resolvepay-nodejs-app
+    app: eziileave-api
 ---
 apiVersion: apps/v1
 kind: Deployment
 metadata:
   labels:
-    app: resolvepay-nodejs-app
-  name: resolvepay-nodejs-app
-  namespace: qa
+    app: eziileave-api
+  name: eziileave-api
+  namespace: qa  # Replace {{Environment}} with actual value
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: resolvepay-nodejs-app
+      app: eziileave-api
   strategy:
     rollingUpdate:
       maxSurge: 1
@@ -36,8 +35,8 @@ spec:
     metadata:
       annotations:
       labels:
-        app: resolvepay-nodejs-app
-      name: resolvepay-nodejs-app
+        app: eziileave-api
+      name: eziileave-api
     spec:
       nodeSelector:
         env: nonprod
@@ -48,6 +47,23 @@ spec:
           - name: ndots
             value: '2'
       containers:
-      - name: app
-        image: resolvepay.azurecr.io/qa/resolvepay-nodejs-app:{{BUILDTAG}}
+      - name: eziileave-ui
+        image: resolvepay.azurecr.io/qa/eziileave-api:{{BUILDTAG}}
         imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 4000
+          protocol: TCP
+        livenessProbe:
+          tcpSocket:
+            port: 4000
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          successThreshold: 1
+          timeoutSeconds: 5
+        readinessProbe:
+          tcpSocket:
+            port: 4000
+          initialDelaySeconds: 60
+          periodSeconds: 30
+          successThreshold: 1
+          timeoutSeconds: 5
