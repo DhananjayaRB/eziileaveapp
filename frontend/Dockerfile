@@ -1,26 +1,15 @@
-# Use the official Node.js image
-FROM node:18
-
-# Set the working directory
+FROM node:18 as builder
 WORKDIR /app
-
-# Copy package.json and package-lock.json
 COPY package*.json ./
-
-# Install dependencies
 RUN npm install
-
-# Copy the rest of the application code
 COPY . .
+RUN npm run build
 
-# 🔥 Fix permissions
-RUN chown -R node:node /app && chmod -R 755 /app
-
-# Switch to a non-root user
-USER node
-
-# Expose the port the app runs on
+FROM node:18-alpine
+WORKDIR /app
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package*.json ./
+COPY --from=builder /app/node_modules ./node_modules
 EXPOSE 3000
-
-# Start the development server
-CMD ["npm", "run", "dev"]
+CMD ["npm", "start"]
