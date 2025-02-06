@@ -3,10 +3,10 @@ FROM node:18-alpine
 WORKDIR /app
 
 COPY package.json ./
-RUN npm install
 RUN chmod +x node_modules/.bin/next
+RUN npm install --omit=dev
 COPY . .
 
 EXPOSE 3000
 
-CMD ["npm", "run" ,"dev"]
+CMD ["npx", "next", "dev"]
