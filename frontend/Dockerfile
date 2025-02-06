@@ -1,26 +1,27 @@
-# Use Node.js LTS version (Debian-based for better compatibility)
+# Use Node.js LTS version
 FROM node:18-bullseye
 
 # Set working directory
 WORKDIR /app
 
-# Copy package.json and package-lock.json first for better caching
+# Copy package files and install dependencies
 COPY package.json package-lock.json ./
-
-# Install dependencies
 RUN npm install --omit=dev
 
-# Copy the rest of the app files
+# Copy the rest of the app
 COPY . .
 
-# 🔥 Fix: Ensure correct file permissions for the entire app directory
+# 🔥 Build the Next.js app
+RUN npm run build
+
+# 🔥 Fix permissions
 RUN chown -R node:node /app && chmod -R 755 /app
 
-# Switch to a non-root user for security
+# Switch to a non-root user
 USER node
 
 # Expose the Next.js port
 EXPOSE 3000
 
-# Run Next.js in development mode
-CMD ["npm", "run", "dev"]
+# Start Next.js in production mode
+CMD ["npm", "run", "start"]
