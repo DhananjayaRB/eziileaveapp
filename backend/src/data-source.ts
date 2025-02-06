@@ -13,10 +13,10 @@ import { LeaveOrganisation } from "./entity/LeaveOrganisation";
 
 export const AppDataSource = new DataSource({
   type: "postgres",
-  host: "db",
+  host: "20.204.119.48",
   port: 5432,
-  username: "user",
-  password: "password",
+  username: "postgres",
+  password: "resolve@2022",
   database: "resolve-leave",
   synchronize: true,
   logging: false,
