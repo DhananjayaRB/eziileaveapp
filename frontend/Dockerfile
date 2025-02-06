@@ -13,8 +13,14 @@ RUN npm install
 # Copy the rest of the application code
 COPY . .
 
+# 🔥 Fix permissions
+RUN chown -R node:node /app && chmod -R 755 /app
+
+# Switch to a non-root user
+USER node
+
 # Expose the port the app runs on
 EXPOSE 3000
 
 # Start the development server
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run", "start"]
