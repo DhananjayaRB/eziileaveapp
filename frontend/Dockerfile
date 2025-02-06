@@ -23,4 +23,4 @@ USER node
 EXPOSE 3000
 
 # Run Next.js in development mode
-CMD ["npx", "next", "dev"]
+CMD ["npm", "run", "dev"]
