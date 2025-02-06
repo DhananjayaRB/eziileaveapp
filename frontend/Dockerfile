@@ -3,8 +3,8 @@ FROM node:18-alpine
 WORKDIR /app
 
 COPY package.json ./
-RUN chmod +x node_modules/.bin/next
 RUN npm install --omit=dev
+RUN chmod +x node_modules/.bin/next
 COPY . .
 
 EXPOSE 3000
