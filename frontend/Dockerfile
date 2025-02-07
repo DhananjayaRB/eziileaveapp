@@ -7,6 +7,7 @@ WORKDIR /app
 # Copy package files and install dependencies
 COPY package.json package-lock.json ./
 RUN npm install
+RUN npm build
 # Copy the rest of the app
 COPY . .
 
@@ -14,4 +15,4 @@ COPY . .
 EXPOSE 3000
 
 # Start Next.js in production mode
-CMD ["npm", "run", "dev"]
+CMD ["npm", "run"]
