@@ -1,31 +1,26 @@
-# Stage 1: Build the Next.js app
-FROM node:18-alpine AS builder
+# Use Node.js LTS version (Debian-based for better compatibility)
+FROM node:18-bullseye
 
+# Set working directory
 WORKDIR /app
 
-# Copy only package files first (to optimize caching)
+# Copy package.json and package-lock.json first for better caching
 COPY package.json package-lock.json ./
 
-RUN npm install --frozen-lockfile
+# Install dependencies
+RUN npm install --omit=dev
 
-# Copy the full project files
+# Copy the rest of the app files
 COPY . .
 
-# ✅ Build the Next.js app
-RUN npm run build
+# 🔥 Fix: Ensure correct file permissions for the entire app directory
+RUN chown -R node:node /app && chmod -R 755 /app
 
-# Stage 2: Run the app
-FROM node:18-alpine
+# Switch to a non-root user for security
+USER node
 
-WORKDIR /app
-
-# Copy built files from builder stage
-COPY --from=builder /app/package.json /app/package-lock.json ./
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/public public
-COPY --from=builder /app/node_modules node_modules
-
+# Expose the Next.js port
 EXPOSE 3000
 
-# ✅ Ensure Next.js starts in production mode
+# Run Next.js in development mode
 CMD ["npm", "run", "start"]
