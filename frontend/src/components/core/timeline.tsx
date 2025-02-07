@@ -179,7 +179,7 @@ function TimeLineCard({
                     Assigned to ({step.assignedRoles.length}) Roles
                   </Text>
                   {step.assignedRoles.map((role, index) => (
-                    <Flex
+                    <Flex  key={index}
                       direction={{ base: "column", md: "row" }}
                       align="center"
                       gap={2}

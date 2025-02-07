@@ -136,7 +136,7 @@ export function WorkflowForm({
                 }
               >
                 {Object.keys(workflowOptions).map((key) => (
-                  <option value={key}>{key}</option>
+                   <option key={key} value={key}>{key}</option>
                 ))}
               </Select>
             </div>
