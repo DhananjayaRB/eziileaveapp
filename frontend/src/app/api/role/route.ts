@@ -4,7 +4,7 @@ export async function POST(request: NextRequest) {
   try {
     const roleData = await request.json();
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/roles`, {
+    const response = await fetch(`https://qa-api.resolveindia.com/leave/api/roles`, {
       method: "POST",
       headers: {
         Authorization: authHeader || "",

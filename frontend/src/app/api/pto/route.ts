@@ -3,7 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch("https://eziileave-api.azurewebsites.net/api/pto", {
+    const response = await fetch("https://qa-api.resolveindia.com/leave/api/pto", {
       headers: {
         Authorization: authHeader || "",
       },
@@ -29,7 +29,7 @@ export async function PATCH(request: Request) {
 
   try {
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch(`https://eziileave-api.azurewebsites.net/api/pto`, {
+    const response = await fetch(`https://qa-api.resolveindia.com/leave/api/pto`, {
       method: "PATCH",
       headers: {
         Authorization: authHeader || "",

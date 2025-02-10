@@ -7,7 +7,7 @@
       - /app/node_modules
     environment:
       NODE_ENV: development
-      BASE_URL: https://eziileave-api.azurewebsites.net
+      BASE_URL: https://qa-api.resolveindia.com/leave
     depends_on:
       - backend
 

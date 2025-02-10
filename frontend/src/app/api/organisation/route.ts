@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 export async function GET(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch("https://eziileave-api.azurewebsites.net/api/organisation", {
+    const response = await fetch("https://qa-api.resolveindia.com/leave/api/organisation", {
       headers: {
         Authorization: authHeader || "",
       },
@@ -31,7 +31,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const authHeader = request.headers.get("Authorization");
-    const response = await fetch("https://eziileave-api.azurewebsites.net/api/organisation", {
+    const response = await fetch("https://qa-api.resolveindia.com/leave/api/organisation", {
       method: "POST",
       headers: {
         Authorization: authHeader || "",
@@ -59,7 +59,7 @@ export async function PATCH(request: Request) {
     const authHeader = request.headers.get("Authorization");
     const body = await request.json();
 
-    const response = await fetch("https://eziileave-api.azurewebsites.net/api/organisation", {
+    const response = await fetch("https://qa-api.resolveindia.com/leave/api/organisation", {
       method: "PATCH",
       headers: {
         Authorization: authHeader || "",

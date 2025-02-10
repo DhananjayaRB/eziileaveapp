@@ -7,7 +7,7 @@ export async function GET(
   try {
     const authHeader = req.headers.get("Authorization");
     const response = await fetch(
-      `https://eziileave-api.azurewebsites.net/api/leave-variant-details/${params.id}`,
+      `https://qa-api.resolveindia.com/leave/api/leave-variant-details/${params.id}`,
       {
         headers: {
           Authorization: authHeader || "",
@@ -37,12 +37,12 @@ export async function PATCH(
   { params }: { params: { id: string } }
 ) {
   try {
-    console.log(`https://eziileave-api.azurewebsites.net/api/leave-variant/${params.id}`);
+    console.log(`https://qa-api.resolveindia.com/leave/api/leave-variant/${params.id}`);
     const body = await req.json();
 
     const authHeader = req.headers.get("Authorization");
     const response = await fetch(
-      `https://eziileave-api.azurewebsites.net/api/leave-variant/${params.id}`,
+      `https://qa-api.resolveindia.com/leave/api/leave-variant/${params.id}`,
       {
         method: "PATCH",
         headers: {
