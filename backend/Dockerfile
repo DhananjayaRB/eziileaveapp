@@ -1,31 +1,20 @@
-# Stage 1: Build the Next.js app
-FROM node:18-alpine AS builder
-
-WORKDIR /app
-
-# Copy only package files first (to optimize caching)
-COPY package.json package-lock.json ./
-
-RUN npm install --frozen-lockfile
-
-# Copy the full project files
-COPY . .
-
-# ✅ Build the Next.js app
-RUN npm run build
-
-# Stage 2: Run the app
+# Use Node.js 18 as the base image
 FROM node:18-alpine
 
+# Set the working directory
 WORKDIR /app
 
-# Copy built files from builder stage
-COPY --from=builder /app/package.json /app/package-lock.json ./
-COPY --from=builder /app/.next .next
-COPY --from=builder /app/public public
-COPY --from=builder /app/node_modules node_modules
+# Copy package.json and package-lock.json
+COPY package.json package-lock.json ./
 
-EXPOSE 3000
+# Install dependencies
+RUN npm install --production
 
-# ✅ Ensure Next.js starts in production mode
-CMD ["npm", "run", "start"]
+# Copy the rest of the application code
+COPY . .
+
+# Expose the application port (e.g., 3000)
+EXPOSE 4000
+
+# Start the application
+CMD ["npm", "start"]
