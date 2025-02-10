@@ -1,18 +1,13 @@
-# Use Node.js LTS version
-FROM node:18-bullseye
+FROM node:18-alpine
 
-# Set working directory
 WORKDIR /app
 
-# Copy package files and install dependencies
-COPY package.json package-lock.json ./
+COPY package.json ./
 RUN npm install
-RUN npm run build
-# Copy the rest of the app
 COPY . .
 
-# Expose the Next.js port
+RUN npm run build
+
 EXPOSE 3000
 
-# Start Next.js in production mode
-CMD ["npm", "run"]
+CMD ["npm", "start"]
