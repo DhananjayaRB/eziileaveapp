@@ -32,7 +32,7 @@ export function HomePage() {
       if (!tokens) return;
 
       const { token } = JSON.parse(tokens);
-      const response = await fetch("/api/organisation", {
+      const response = await fetch("https://qa-api.resolveindia.com/leave/api/organisation", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${token}`,

@@ -59,7 +59,7 @@ export default function Page() {
         if (!tokens) return;
 
         const { token } = JSON.parse(tokens);
-        const response = await fetch("/api/organisation", {
+        const response = await fetch("https://qa-api.resolveindia.com/leave/api/organisation", {
           method: "PATCH",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -75,7 +75,7 @@ export default function Page() {
         }
 
         await response.json();
-        mutate("/api/organisation"); // Refresh the organisation data
+        mutate("https://qa-api.resolveindia.com/leave/api/organisation"); // Refresh the organisation data
         router.push("/setup/leave-types");
       } catch (error) {
         console.error("Error updating effective date:", error);

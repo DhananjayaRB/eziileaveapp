@@ -46,7 +46,7 @@ export default function AppProvider({
     data: organisation,
     isLoading,
     error,
-  } = useSWR("/api/organisation", fetcher);
+  } = useSWR("https://qa-api.resolveindia.com/leave/api/organisation", fetcher);
 
   useEffect(() => {
     const storedToken =

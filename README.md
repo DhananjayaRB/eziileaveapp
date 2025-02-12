@@ -43,7 +43,7 @@ docker-compose up --build
 The `--build` flag ensures that Docker rebuilds the images if there are any changes. After running this, the following services should be running:
 
 - Frontend: http://localhost:3000
-- Backend: http://localhost:4000
+- Backend: https://qa-api.resolveindia.com/leave
 - PostgreSQL: Exposed on port 5432, but not directly accessible unless using a database client like psql or typeorm.
 
 3. Checking Database Persistence
