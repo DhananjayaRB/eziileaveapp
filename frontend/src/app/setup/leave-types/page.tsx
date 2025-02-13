@@ -82,7 +82,7 @@ export default function Page() {
   }, [updateBreadcrumb]);
 
   const { data: fetchedLeaveTypes, error } = useSWR(
-    "/api/leave-types",
+    "/api/leave-type",
     fetcher,
     {
       revalidateOnFocus: false,
@@ -105,7 +105,7 @@ export default function Page() {
 
       const { token } = JSON.parse(tokens);
 
-      const response = await fetch(`/api/leave-types`, {
+      const response = await fetch(`/api/leave-type`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -121,7 +121,7 @@ export default function Page() {
       const updatedLeaveType = await response.json();
 
       mutate(
-        "/api/leave-types",
+        "/api/leave-type",
         (leaveTypes?: LeaveType[]) =>
           leaveTypes
             ? leaveTypes.map((leaveType) =>
@@ -142,7 +142,7 @@ export default function Page() {
 
       const { token } = JSON.parse(tokens);
 
-      const response = await fetch(`/api/leave-types`, {
+      const response = await fetch(`/api/leave-type`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -158,7 +158,7 @@ export default function Page() {
       const updatedLeaveType = await response.json();
 
       mutate(
-        "/api/leave-types",
+        "/api/leave-type",
         (leaveTypes?: LeaveType[]) =>
           leaveTypes
             ? leaveTypes.map((leaveType) =>
